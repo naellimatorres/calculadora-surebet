@@ -1,0 +1,326 @@
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Calculadora de Surebet by jOtinh@</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    body {
+        background: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+    .box {
+        background: white;
+        width: 100%;
+        max-width: 650px;
+        margin: auto;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 0 12px rgba(0,0,0,0.15);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-size: 1.8rem;
+    }
+
+    label {
+        font-weight: bold;
+        margin-top: 10px;
+        display: block;
+        font-size: 1rem;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        margin-top: 5px;
+        border-radius: 8px;
+        border: 1px solid #bbb;
+        font-size: 1rem;
+        box-sizing: border-box;
+    }
+
+    button {
+        width: 100%;
+        padding: 15px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        margin-top: 15px;
+        transition: 0.2s;
+    }
+
+    button:hover {
+        background: #005ec9;
+    }
+
+    .toggle-btn {
+        background: #444;
+    }
+
+    .toggle-btn.active {
+        background: #28a745;
+    }
+
+    .result {
+        background: #eef2ff;
+        margin-top: 25px;
+        padding: 20px;
+        border-radius: 10px;
+        display: none;
+        font-size: 1rem;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    @media (max-width: 480px) {
+        body {
+            padding: 10px;
+        }
+        .box {
+            padding: 18px;
+        }
+        h2 {
+            font-size: 1.5rem;
+        }
+        input {
+            padding: 12px;
+            font-size: 0.95rem;
+        }
+        button {
+            font-size: 1rem;
+            padding: 14px;
+        }
+        .result {
+            font-size: 0.95rem;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="box">
+
+    <h2>Calculadora de Surebet - by jOtinh@</h2>
+
+    <label>Odd 1:</label>
+    <input type="number" id="odd1" step="0.01" placeholder="@1,55">
+
+    <label>Stake 1 (opcional):</label>
+    <input type="number" id="stake1" step="0.01" placeholder="Se deixar vazio, será calculado automaticamente">
+
+    <label>Odd 2:</label>
+    <input type="number" id="odd2" step="0.01" placeholder="@2,55">
+
+    <label>Stake 2 (opcional):</label>
+    <input type="number" id="stake2" step="0.01" placeholder="Se deixar vazio, será calculado automaticamente">
+
+    <!-- CAMPO 3 DINÂMICO -->
+    <div id="extraCampos" class="hidden">
+
+        <label>Odd 3:</label>
+        <input type="number" id="odd3" step="0.01" placeholder="@1,55">
+
+        <label>Stake 3 (opcional):</label>
+        <input type="number" id="stake3" step="0.01" placeholder="Se deixar vazio, será calculado automaticamente">
+    </div>
+
+    <button id="btn3odd" onclick="toggleTerceiraOdd()">Adicionar 3ª Odd</button>
+
+
+    <label>Stake Total (opcional):</label>
+    <input type="number" id="total" step="0.01" placeholder="R$ 100,00">
+
+    <button id="roundButton" class="toggle-btn" onclick="toggleRound()">Arredondamento: DESLIGADO</button>
+
+    <button onclick="calcularSurebet()">CALCULAR SUREBET</button>
+
+    <button onclick="limparCampos()" style="background:#dc3545;">LIMPAR CAMPOS</button>
+
+    <div id="resultado" class="result"></div>
+	
+	<h3>Tabela de Referência – Mínimo para Surebet</h3>
+<table border="1" cellspacing="0" cellpadding="8" style="width:100%; text-align:center; border-collapse: collapse;">
+    <tr style="background:#ddd; font-weight:bold;">
+        <td>Odd 1</td>
+        <td>Odd mínima da Odd 2 para formar Surebet</td>
+    </tr>
+    <tr><td>1.10</td><td>11.00</td></tr>
+    <tr><td>1.15</td><td>7.67</td></tr>
+    <tr><td>1.20</td><td>6.00</td></tr>
+    <tr><td>1.25</td><td>5.00</td></tr>
+    <tr><td>1.30</td><td>4.33</td></tr>
+    <tr><td>1.35</td><td>3.86</td></tr>
+    <tr><td>1.40</td><td>3.50</td></tr>
+    <tr><td>1.45</td><td>3.22</td></tr>
+    <tr><td>1.50</td><td>3.00</td></tr>
+    <tr><td>1.55</td><td>2.82</td></tr>
+    <tr><td>1.60</td><td>2.67</td></tr>
+    <tr><td>1.65</td><td>2.54</td></tr>
+    <tr><td>1.70</td><td>2.43</td></tr>
+    <tr><td>1.75</td><td>2.33</td></tr>
+    <tr><td>1.80</td><td>2.25</td></tr>
+    <tr><td>1.85</td><td>2.18</td></tr>
+    <tr><td>1.90</td><td>2.11</td></tr>
+    <tr><td>1.95</td><td>2.05</td></tr>
+    <tr><td>2.00</td><td>2.00</td></tr>
+    <tr><td>2.05</td><td>1.95</td></tr>
+    <tr><td>2.10</td><td>1.90</td></tr>
+    <tr><td>2.20</td><td>1.83</td></tr>
+    <tr><td>2.30</td><td>1.77</td></tr>
+    <tr><td>2.40</td><td>1.71</td></tr>
+    <tr><td>2.50</td><td>1.67</td></tr>
+    <tr><td>2.75</td><td>1.57</td></tr>
+    <tr><td>3.00</td><td>1.50</td></tr>
+    <tr><td>3.50</td><td>1.40</td></tr>
+    <tr><td>4.00</td><td>1.33</td></tr>
+    <tr><td>5.00</td><td>1.25</td></tr>
+    <tr><td>6.00</td><td>1.20</td></tr>
+    <tr><td>7.00</td><td>1.17</td></tr>
+    <tr><td>8.00</td><td>1.14</td></tr>
+    <tr><td>10.00</td><td>1.11</td></tr>
+</table>
+
+</div>
+
+<script>
+let arredondar = false;
+
+function toggleTerceiraOdd() {
+    const campo = document.getElementById("extraCampos");
+    const btn = document.getElementById("btn3odd");
+
+    if (campo.classList.contains("hidden")) {
+        campo.classList.remove("hidden");
+        btn.innerText = "Remover 3ª Odd";
+    } else {
+        campo.classList.add("hidden");
+        btn.innerText = "Adicionar 3ª Odd";
+
+        // Limpar os valores da odd 3 e stake 3 ao remover
+        document.getElementById("odd3").value = "";
+        document.getElementById("stake3").value = "";
+    }
+}
+
+
+function toggleRound() {
+    arredondar = !arredondar;
+    const btn = document.getElementById("roundButton");
+    btn.classList.toggle("active");
+    btn.innerText = arredondar ? "Arredondamento: LIGADO" : "Arredondamento: DESLIGADO";
+}
+
+function roundTo0or5(value) {
+    const lower = Math.floor(value / 5) * 5;
+    const upper = lower + 5;
+    return (value - lower) < (upper - value) ? lower : upper;
+}
+
+function limparCampos() {
+    document.querySelectorAll("input").forEach(i => i.value = "");
+    document.getElementById("resultado").style.display = "none";
+}
+
+function calcularSurebet() {
+
+    let odds = [];
+    let stakes = [];
+
+    let o1 = parseFloat(odd1.value);
+    let o2 = parseFloat(odd2.value);
+    let o3 = parseFloat(document.getElementById("odd3").value);
+
+    let s1 = parseFloat(stake1.value);
+    let s2 = parseFloat(stake2.value);
+    let s3 = parseFloat(document.getElementById("stake3").value);
+
+    let total = parseFloat(document.getElementById("total").value);
+
+    // Montar arrays
+    if (o1) odds.push(o1), stakes.push(s1);
+    if (o2) odds.push(o2), stakes.push(s2);
+    if (o3) odds.push(o3), stakes.push(s3);
+
+    if (odds.length < 2) {
+        alert("Informe pelo menos 2 odds.");
+        return;
+    }
+
+    let inv = odds.map(o => 1/o);
+    let taxa = inv.reduce((a,b)=>a+b,0);
+
+    if (taxa >= 1) {
+        resultado.style.display = "block";
+        resultado.innerHTML = "<b>Não é surebet!</b>";
+        return;
+    }
+
+    let stakesFinal = [];
+
+    let manual = stakes.some(s => !isNaN(s));
+
+    if (!manual) {
+        if (!total) { alert("Informe o total ou alguma stake."); return; }
+
+        for (let i = 0; i < odds.length; i++) {
+            stakesFinal[i] = (total * inv[i]) / taxa;
+        }
+    } else {
+        stakesFinal = [...stakes];
+        // Preencher stakes faltantes mantendo proporcionalidade
+        let n = odds.length;
+        let knownIndex = stakes.findIndex(s => !isNaN(s));
+        let baseStake = stakes[knownIndex];
+        let baseOdd = odds[knownIndex];
+
+        for (let i = 0; i < n; i++) {
+            if (isNaN(stakes[i])) {
+                stakesFinal[i] = (baseStake * baseOdd) / odds[i];
+            }
+        }
+    }
+
+    // Arredondamento
+    if (arredondar) {
+        let r = stakesFinal.map(s => roundTo0or5(s));
+        stakesFinal = r;
+    }
+
+    let retornos = stakesFinal.map((s,i)=> s * odds[i]);
+    let retornoFinal = Math.min(...retornos);
+    let totalInvestido = stakesFinal.reduce((a,b)=>a+b,0);
+    let lucro = retornoFinal - totalInvestido;
+    let roi = (lucro / totalInvestido) * 100;
+
+    let html = `<b>RESULTADO DA SUREBET</b><br><br>`;
+
+    stakesFinal.forEach((s,i)=>{
+        html += `<b>Stake ${i+1}:</b> R$ ${s.toFixed(2)} (Odd ${odds[i]})<br>`;
+    });
+
+    html += `
+        <br><b>Total Apostado:</b> R$ ${totalInvestido.toFixed(2)}<br>
+        <b>Retorno garantido:</b> R$ ${retornoFinal.toFixed(2)}<br>
+        <b>Lucro garantido:</b> R$ ${lucro.toFixed(2)}<br>
+        <b>ROI:</b> ${roi.toFixed(2)}%
+    `;
+
+    resultado.style.display = "block";
+    resultado.innerHTML = html;
+}
+</script>
+
+</body>
+</html>
