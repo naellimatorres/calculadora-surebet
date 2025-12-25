@@ -10,8 +10,9 @@
         padding: 20px;
         font-family: Arial, sans-serif;
     }
-    .container {
-     background: white;
+
+    .box {
+        background: white;
         width: 100%;
         max-width: 650px;
         margin: auto;
@@ -19,11 +20,30 @@
         border-radius: 12px;
         box-shadow: 0 0 12px rgba(0,0,0,0.15);
     }
-    input {
-      width: 100%;
-      padding: 8px;
-      margin: 8px 0;
+
+    h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-size: 1.8rem;
     }
+
+    label {
+        font-weight: bold;
+        margin-top: 10px;
+        display: block;
+        font-size: 1rem;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        margin-top: 5px;
+        border-radius: 8px;
+        border: 1px solid #bbb;
+        font-size: 1rem;
+        box-sizing: border-box;
+    }
+
     button {
         width: 100%;
         padding: 15px;
@@ -36,15 +56,68 @@
         margin-top: 15px;
         transition: 0.2s;
     }
+
     button:hover {
-      background: #1b5e20;
+        background: #005ec9;
     }
+
+	.btn-freebet {
+		  width: 100%;
+        padding: 15px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        margin-top: 15px;
+        transition: 0.2s;
+	}
+	.btn-freebet:hover {
+	  	background: #0d47a1;
+	}
+    .toggle-btn {
+        background: #444;
+    }
+
+    .toggle-btn.active {
+        background: #28a745;
+    }
+
     .result {
-      margin-top: 15px;
-      background: #eef;
-      padding: 12px;
-      border-radius: 5px;
-      line-height: 1.6;
+        background: #eef2ff;
+        margin-top: 25px;
+        padding: 20px;
+        border-radius: 10px;
+        display: none;
+        font-size: 1rem;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    @media (max-width: 480px) {
+        body {
+            padding: 10px;
+        }
+        .box {
+            padding: 18px;
+        }
+        h2 {
+            font-size: 1.5rem;
+        }
+        input {
+            padding: 12px;
+            font-size: 0.95rem;
+        }
+        button {
+            font-size: 1rem;
+            padding: 14px;
+        }
+        .result {
+            font-size: 0.95rem;
+        }
     }
   </style>
 </head>
@@ -118,5 +191,6 @@ function voltar() {
 
 </body>
 </html>
+
 
 
