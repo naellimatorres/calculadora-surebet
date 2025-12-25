@@ -25,13 +25,16 @@
       margin: 8px 0;
     }
     button {
-      width: 100%;
-      padding: 10px;
-      background: #2e7d32;
-      color: #fff;
-      border: none;
-      font-size: 16px;
-      cursor: pointer;
+        width: 100%;
+        padding: 15px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        margin-top: 15px;
+        transition: 0.2s;
     }
     button:hover {
       background: #1b5e20;
@@ -63,9 +66,11 @@
   <input type="number" id="oddHedge" step="0.01">
 
   <button onclick="calcular()">Calcular</button>
+  
   <button class="btn-voltar" onclick="voltar()">
     ⬅️ Voltar
   </button>
+  
   <div class="result" id="resultado"></div>
 </div>
 
@@ -113,4 +118,5 @@ function voltar() {
 
 </body>
 </html>
+
 
