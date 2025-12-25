@@ -5,118 +5,40 @@
   <title>Calculadora de Freebet (Hedge)</title>
   <style>
     body {
-        background: #f4f4f4;
-        margin: 0;
-        padding: 20px;
-        font-family: Arial, sans-serif;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
     }
-
-    .box {
-        background: white;
-        width: 100%;
-        max-width: 650px;
-        margin: auto;
-        padding: 25px;
-        border-radius: 12px;
-        box-shadow: 0 0 12px rgba(0,0,0,0.15);
+    .container {
+      max-width: 480px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-
-    h2 {
-        text-align: center;
-        margin-bottom: 25px;
-        font-size: 1.8rem;
-    }
-
-    label {
-        font-weight: bold;
-        margin-top: 10px;
-        display: block;
-        font-size: 1rem;
-    }
-
     input {
-        width: 100%;
-        padding: 12px;
-        margin-top: 5px;
-        border-radius: 8px;
-        border: 1px solid #bbb;
-        font-size: 1rem;
-        box-sizing: border-box;
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
     }
-
     button {
-        width: 100%;
-        padding: 15px;
-        background: #007bff;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-size: 1.1rem;
-        cursor: pointer;
-        margin-top: 15px;
-        transition: 0.2s;
+      width: 100%;
+      padding: 10px;
+      background: #2e7d32;
+      color: #fff;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
     }
-
     button:hover {
-        background: #005ec9;
+      background: #1b5e20;
     }
-
-	.btn-freebet {
-		width: 100%;
-        padding: 15px;
-        background: #007bff;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-size: 1.1rem;
-        cursor: pointer;
-        margin-top: 15px;
-        transition: 0.2s;
-	}
-	.btn-freebet:hover {
-	  	background: #0d47a1;
-	}
-    .toggle-btn {
-        background: #444;
-    }
-
-    .toggle-btn.active {
-        background: #28a745;
-    }
-
     .result {
       margin-top: 15px;
       background: #eef;
       padding: 12px;
       border-radius: 5px;
       line-height: 1.6;
-    }
-
-    .hidden {
-        display: none;
-    }
-
-    @media (max-width: 480px) {
-        body {
-            padding: 10px;
-        }
-        .box {
-            padding: 18px;
-        }
-        h2 {
-            font-size: 1.5rem;
-        }
-        input {
-            padding: 12px;
-            font-size: 0.95rem;
-        }
-        button {
-            font-size: 1rem;
-            padding: 14px;
-        }
-        .result {
-            font-size: 0.95rem;
-        }
     }
   </style>
 </head>
@@ -138,11 +60,9 @@
   <input type="number" id="oddHedge" step="0.01">
 
   <button onclick="calcular()">Calcular</button>
-  
-  <button class="btn-voltar" onclick="voltar()">
-    ⬅️ Voltar
-  </button>
-  
+
+	<button onclick="history.back()"> ⬅️ Voltar </button>
+
   <div class="result" id="resultado"></div>
 </div>
 
@@ -180,18 +100,7 @@ function calcular() {
     • Se o hedge ganhar → <strong>Resultado: R$ 0,00</strong>
   `;
 }
-  
-function voltar() {
-  window.location.href =
-    "https://naellimatorres.github.io/calculadora-surebet/";
-}
-  
 </script>
 
 </body>
 </html>
-
-
-
-
-
